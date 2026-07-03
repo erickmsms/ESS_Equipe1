@@ -62,6 +62,12 @@ Given("eu estou logado como administrador", () => {
   visitarPaginaManutencoes();
 });
 
+Given("existe pelo menos uma solicitação de manutenção pendente no sistema", () => {
+  criarSolicitacaoPendente("D005");
+  visitarPaginaManutencoes();
+});
+
+
 Given(
   "existe uma solicitação de manutenção pendente para a sala {string} sem reservas confirmadas",
   (room) => {
@@ -129,7 +135,9 @@ When("eu confirmo a manutenção mesmo assim", () => {
 
 Then("eu consigo visualizar as solicitações", () => {
   cy.contains("button", "Pendentes").should("be.visible");
-  cy.get("table", { timeout: 10000 }).should("exist");
+  // Aguarda o loading sumir e a tabela aparecer
+  cy.contains("p", "Carregando", { timeout: 10000 }).should("not.exist");
+  cy.get("table", { timeout: 10000 }).should("be.visible");
 });
 
 Then("o status da solicitação da sala {string} é atualizado para {string}", (room, statusLabel) => {

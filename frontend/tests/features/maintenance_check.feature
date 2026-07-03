@@ -5,7 +5,7 @@ Feature: Confirmação e Negação de Solicitações de Manutenção
   So that eu possa gerenciar adequadamente o estado e a disponibilidade das salas
 
   Scenario: Visualizar solicitações de manutenção pendentes
-    Given eu estou logado como administrador
+    Given existe pelo menos uma solicitação de manutenção pendente no sistema
     When eu acesso a página de visualização de solicitações de manutenção
     Then eu consigo visualizar as solicitações
 
